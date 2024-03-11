@@ -1,6 +1,6 @@
 # CVPR 2024 Frequency-Adaptive Dilated Convolution
 
-The implementation  of our CVPR 2024 paper "[Frequency-Adaptive Dilated Convolution]()".
+The implementation  of our CVPR 2024 paper "[Frequency-Adaptive Dilated Convolution](https://arxiv.org/abs/2403.05369)".
 
 Interested readers are also referred to an insightful [Note]() about this work in Zhihu (TODO). 
 
