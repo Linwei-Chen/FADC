@@ -1,6 +1,6 @@
 # CVPR 2024 Frequency-Adaptive Dilated Convolution
 
-The [official implementation](https://github.com/Linwei-Chen/FADC) of our CVPR 2024 paper "[Frequency-Adaptive Dilated Convolution](https://arxiv.org/abs/2403.05369)".
+The [official implementation](https://github.com/Linwei-Chen/FADC) of our CVPR 2024 paper "[Frequency-Adaptive Dilated Convolution](https://arxiv.org/abs/2403.05369)", which is also available at https://github.com/ying-fu/FADC.
 
 Interested readers are also referred to an insightful [Note]() about this work in Zhihu (TODO). 
 
