@@ -51,7 +51,6 @@ model = dict(
     test_cfg = dict(mode='slide', crop_size=crop_size, stride=(341, 341)),
 )
 
-# By default, models are trained on 8 GPUs with 2 images per GPU
 data=dict(samples_per_gpu=4, workers_per_gpu=4,)
 
 optimizer = dict(constructor='LearningRateDecayOptimizerConstructorHorNet', _delete_=True, type='AdamW', 
