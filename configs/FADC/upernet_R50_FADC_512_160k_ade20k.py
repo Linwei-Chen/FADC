@@ -43,9 +43,7 @@ model = dict(
             },
             sp_att=False,
             fallback_on_stride=False),
-        # dcn=dict( #在最后三个block加入可变形卷积 
         stage_with_dcn=(False, True, True, True),
-        # stage_with_dcn=(False, False, False, False),
     ),
     decode_head=dict(
         num_classes=150), 
