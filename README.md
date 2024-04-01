@@ -1,6 +1,6 @@
 # CVPR 2024 Frequency-Adaptive Dilated Convolution
 
-The [official implementation](https://github.com/Linwei-Chen/FADC) of our CVPR 2024 paper "[Frequency-Adaptive Dilated Convolution](https://arxiv.org/abs/2403.05369)", which is also available at https://github.com/ying-fu/FADC.
+The preliminary [official implementation](https://github.com/Linwei-Chen/FADC) of our CVPR 2024 paper "[Frequency-Adaptive Dilated Convolution](https://arxiv.org/abs/2403.05369)", which is also available at https://github.com/ying-fu/FADC.
 
 Interested readers are also referred to an insightful [Note]() about this work in Zhihu (TODO). 
 
@@ -17,17 +17,19 @@ Subsequently, we design two plug-in modules to directly enhance effective bandwi
 - We introduced Frequency-Adaptive Dilated Convolution (FADC). It adopts Adaptive Dilation Rate (AdaDR), Adaptive Kernel (AdaKern), and Frequency Selection (FreqSelect) strategies. AdaDR dynamically adjusts dilation rates in a spatially variant manner to achieve a balance between effective bandwidth and receptive field. AdaKern adaptive adjusts the kernel to fully utilize the bandwidth and FreqSelect learns a frequency-balanced feature to encourage a large receptive field.
 - We validate our approach through comprehensive experiments in the segmentation task, consistently demonstrating its effectiveness. Furthermore, the proposed AdaKern and FreqSelect also prove to be effective when integrated with deformable convolution and dilated attention in object detection and segmentation tasks.
 
-<img src="README.assets/image-20240305155020262.png" alt="图片描述" width="512">
-
-
+<img src="README.assets/image-20240401161246300.png" alt="图片描述" width="512">
 
 ## Code Usage
 
 ### Installation
 
-Our code is based on [MMSegmentation](https://github.com/open-mmlab/mmsegmentation).
+Our code is based on [MMSegmentation](https://github.com/open-mmlab/mmsegmentation). You can install mmseg by:
 
-Please refer to [get_started.md](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/en/get_started.md#installation) for installation and [dataset_prepare.md](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/en/user_guides/2_dataset_prepare.md#prepare-datasets) for dataset preparation.
+```
+pip install mmsegmentation==0.25.0
+```
+
+Please refer to [get_started.md](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/en/get_started.md#installation) for more details on installation, and [dataset_prepare.md](https://github.com/open-mmlab/mmsegmentation/blob/main/docs/en/user_guides/2_dataset_prepare.md#prepare-datasets) for information on dataset preparation. For further details on code usage, you can refer to [this](https://github.com/raoyongming/HorNet/tree/master/semantic_segmentation).
 
 You can install mmcv-full by: 
 
@@ -38,10 +40,16 @@ pip install mmcv-full==1.5.3 -f https://download.openmmlab.com/mmcv/dist/cu113/t
 
 ### Results
 
-| Method  | Backbone        | Crop Size | Lr Schd | mIoU |
-| ------- | --------------- | --------- | ------- | ---- |
-| UPerNet | R50             | 512x512   | 160k    | 40.7 |
-| UPerNet | R50+FADC (Ours) | 512x512   | 160k    | 44.4 |
+| Method                                                       | Backbone        | Crop Size | Lr Schd | mIoU |
+| ------------------------------------------------------------ | --------------- | --------- | ------- | ---- |
+| UPerNet                                                      | R50             | 512x512   | 160k    | 40.7 |
+| UPerNet ([ckpt](https://pan.baidu.com/s/1z5CQ7Bx1hz-LXlMtUux6dQ), code: CVPR) | R50+FADC (Ours) | 512x512   | 160k    | 44.4 |
+
+Note:
+
+The config can be found at [here](./configs/FADC).
+
+
 
 If you use our dataset or code for research, please cite this paper  (to be updated): 
 
@@ -52,10 +60,18 @@ If you use our dataset or code for research, please cite this paper  (to be upda
   {Proceedings of the IEEE conference on computer vision and pattern recognition},
   year={2024}
 }
+@article{chen2024frequency,
+  title={Frequency-Adaptive Dilated Convolution for Semantic Segmentation},
+  author={Chen, Linwei and Gu, Lin and Fu, Ying},
+  journal={arXiv preprint arXiv:2403.05369},
+  year={2024}
+}
 ```
 
+## Acknowledgment
 
+This code is built using [mmsegmentation](https://github.com/open-mmlab/mmsegmentation), [timm](https://github.com/rwightman/pytorch-image-models) libraries, [HorNet](https://github.com/raoyongming/HorNet/tree/master/semantic_segmentation#readme) and [ConvNeXt](https://github.com/facebookresearch/ConvNeXt).
 
 ## Contact
 
-If you find any problem, please feel free to contact me (Linwei at  chenlinwei@bit.edu.cn). A brief self-introduction (including your name, affiliation, and position) is required, if you would like to get in-depth help from me. I'd be glad to talk with you if more information (e.g. your personal website link) is attached.
+If you encounter any problems or bugs, please don't hesitate to contact me at [chenlinwei@bit.edu.cn](mailto:chenlinwei@bit.edu.cn). To ensure effective assistance, please provide a brief self-introduction, including your name, affiliation, and position. If you would like more in-depth help, feel free to provide additional information such as your personal website link. I would be happy to discuss with you and offer support.
