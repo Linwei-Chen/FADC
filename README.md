@@ -43,7 +43,7 @@ pip install mmcv-full==1.5.3 -f https://download.openmmlab.com/mmcv/dist/cu113/t
 | Method                                                       | Backbone        | Crop Size | Lr Schd | mIoU |
 | ------------------------------------------------------------ | --------------- | --------- | ------- | ---- |
 | UPerNet                                                      | R50             | 512x512   | 160k    | 40.7 |
-| UPerNet ([ckpt](https://pan.baidu.com/s/1z5CQ7Bx1hz-LXlMtUux6dQ), code: CVPR) | R50+FADC (Ours) | 512x512   | 160k    | 44.4 |
+| UPerNet ([ckpt](https://pan.baidu.com/s/1uGNefkH1IpYvMZ6cmq5tXw?pwd=CVPR), code: CVPR) | R50+FADC (Ours) | 512x512   | 160k    | 44.4 |
 
 Note:
 
