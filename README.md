@@ -51,19 +51,14 @@ The config can be found at [here](./configs/FADC).
 
 
 
-If you use our dataset or code for research, please cite this paper  (to be updated): 
+If you use our dataset or code for research, please cite this paper: 
 
 ```
-@inproceedings{chen2024FADC,
+@inproceedings{chen2024frequency,
   title={Frequency-Adaptive Dilated Convolution for Semantic Segmentation},
-  author={Chen, Linwei and Gu, Lin and Fu, Ying},
-  {Proceedings of the IEEE conference on computer vision and pattern recognition},
-  year={2024}
-}
-@article{chen2024frequency,
-  title={Frequency-Adaptive Dilated Convolution for Semantic Segmentation},
-  author={Chen, Linwei and Gu, Lin and Fu, Ying},
-  journal={arXiv preprint arXiv:2403.05369},
+  author={Chen, Linwei and Gu, Lin and Zheng, Dezhi and Fu, Ying},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={3414--3425},
   year={2024}
 }
 ```
