@@ -19,6 +19,9 @@ import traceback
 import torch.utils.checkpoint as checkpoint
 
 class OmniAttention(nn.Module):
+    """
+    For adaptive kernel, AdaKern
+    """
     def __init__(self, in_planes, out_planes, kernel_size, groups=1, reduction=0.0625, kernel_num=4, min_channel=16):
         super(OmniAttention, self).__init__()
         attention_channel = max(int(in_planes * reduction), min_channel)
@@ -534,7 +537,7 @@ class AdaptiveDilatedConv(ModulatedDeformConv2d):
             adaptive_weight = self.weight.unsqueeze(0).repeat(b, 1, 1, 1, 1) # b, c_out, c_in, k, k
             adaptive_weight_mean = adaptive_weight.mean(dim=(-1, -2), keepdim=True)
             adaptive_weight_res = adaptive_weight - adaptive_weight_mean
-            b, c_out, c_in, k, k = adaptive_weight.shape
+            _, c_out, c_in, k, k = adaptive_weight.shape
             if self.use_dct:
                 dct_coefficients = dct.dct_2d(adaptive_weight_res)
                 # print(adaptive_weight_res.shape, dct_coefficients.shape)
@@ -548,7 +551,11 @@ class AdaptiveDilatedConv(ModulatedDeformConv2d):
             # adaptive_weight = adaptive_weight_mean * (c_att1.unsqueeze(1) * 2) * (f_att1.unsqueeze(2) * 2) + (adaptive_weight - adaptive_weight_mean) * (c_att2.unsqueeze(1) * 2) * (f_att2.unsqueeze(2) * 2)
             adaptive_weight = adaptive_weight_mean * (c_att1.unsqueeze(1) * 2) * (f_att1.unsqueeze(2) * 2) + adaptive_weight_res * (c_att2.unsqueeze(1) * 2) * (f_att2.unsqueeze(2) * 2)
             adaptive_weight = adaptive_weight.reshape(-1, self.in_channels // self.groups, 3, 3)
-            x = modulated_deform_conv2d(x, offset, mask, adaptive_weight, self.bias,
+            bias = self.bias.repeat(b)
+            # print(adaptive_weight.shape)
+            # print(bias.shape)
+            # print(x.shape)
+            x = modulated_deform_conv2d(x, offset, mask, adaptive_weight, bias,
                                 self.stride, (self.kernel_size[0] // 2, self.kernel_size[1] // 2) if isinstance(self.PAD, nn.Identity) else (0, 0), #padding
                                 (1, 1), # dilation
                                 self.groups * b, self.deform_groups * b)
@@ -585,3 +592,10 @@ class AdaptiveDilatedConv(ModulatedDeformConv2d):
         #                                self.deform_groups)
         # if hasattr(self, 'OMNI_ATT'): x = x * f_att
         return x.reshape(b, -1, h, w)
+    
+if __name__ == '__main__':
+    x = torch.rand(2, 4, 16, 16).cuda()
+    m = AdaptiveDilatedConv(in_channels=4, out_channels=8, kernel_size=3).cuda()
+    m.eval()
+    y = m(x)
+    print(y.shape)
