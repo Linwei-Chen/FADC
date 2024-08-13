@@ -582,7 +582,10 @@ class AdaptiveDilatedConv(ModulatedDeformConv2d):
             # adaptive_weight = adaptive_weight_mean * (c_att1.unsqueeze(1) * 2) * (f_att1.unsqueeze(2) * 2) + (adaptive_weight - adaptive_weight_mean) * (c_att2.unsqueeze(1) * 2) * (f_att2.unsqueeze(2) * 2)
             adaptive_weight = adaptive_weight_mean * (c_att1.unsqueeze(1) * 2) * (f_att1.unsqueeze(2) * 2) + adaptive_weight_res * (c_att2.unsqueeze(1) * 2) * (f_att2.unsqueeze(2) * 2)
             adaptive_weight = adaptive_weight.reshape(-1, self.in_channels // self.groups, 3, 3)
-            bias = self.bias.repeat(b)
+            if self.bias:
+                bias = self.bias.repeat(b)
+            else:
+                bias = self.bias
             x = modulated_deform_conv2d(x, offset, mask, adaptive_weight, bias,
                                 self.stride, (self.kernel_size[0] // 2, self.kernel_size[1] // 2) if isinstance(self.PAD, nn.Identity) else (0, 0), #padding
                                 (1, 1), # dilation
@@ -600,7 +603,10 @@ class AdaptiveDilatedConv(ModulatedDeformConv2d):
                 adaptive_weight = adaptive_weight_mean * (c_att.unsqueeze(1) * 2) * (f_att.unsqueeze(2) * 2) + (adaptive_weight - adaptive_weight_mean) 
                 
             adaptive_weight = adaptive_weight.reshape(-1, self.in_channels // self.groups, 3, 3)
-            bias = self.bias.repeat(b)
+            if self.bias:
+                bias = self.bias.repeat(b)
+            else:
+                bias = self.bias
             # adaptive_bias = self.unsqueeze(0).repeat(b, 1, 1, 1, 1)
             # print(adaptive_weight.shape)
             # print(offset.shape)
@@ -837,7 +843,10 @@ class AdaptiveDilatedDWConv(ModulatedDeformConv2d):
             adaptive_weight_mean = adaptive_weight.mean(dim=(-1, -2), keepdim=True)
             adaptive_weight = adaptive_weight_mean * (2 * c_att1.unsqueeze(2)) + (adaptive_weight - adaptive_weight_mean) * (2 * c_att2.unsqueeze(2))
             adaptive_weight = adaptive_weight.reshape(-1, self.in_channels // self.groups, 3, 3)
-            bias = self.bias.repeat(b)
+            if self.bias:
+                bias = self.bias.repeat(b)
+            else:
+                bias = self.bias
             x = modulated_deform_conv2d(x, offset, mask, adaptive_weight, bias,
                                         self.stride, self.padding if isinstance(self.PAD, nn.Identity) else 0, #padding
                                         (1, 1), # dilation
@@ -854,7 +863,10 @@ class AdaptiveDilatedDWConv(ModulatedDeformConv2d):
             elif self.kernel_decompose == 'low':
                 adaptive_weight = adaptive_weight_mean * (2 * c_att.unsqueeze(2)) + (adaptive_weight - adaptive_weight_mean) 
             adaptive_weight = adaptive_weight.reshape(-1, self.in_channels // self.groups, 3, 3)
-            bias = self.bias.repeat(b)
+            if self.bias:
+                bias = self.bias.repeat(b)
+            else:
+                bias = self.bias
             x = modulated_deform_conv2d(x, offset, mask, adaptive_weight, bias,
                                         self.stride, self.padding if isinstance(self.PAD, nn.Identity) else 0, #padding
                                         (1, 1), # dilation
@@ -894,7 +906,10 @@ class AdaptiveDilatedDWConv(ModulatedDeformConv2d):
             adaptive_weight = self.weight.unsqueeze(0).repeat(b, 1, 1, 1, 1) # b, out, in, k, k
             adaptive_weight_mean = adaptive_weight.mean(dim=(-1, -2), keepdim=True)
             adaptive_weight = adaptive_weight_mean * (2 * c_att1.unsqueeze(2)) + (adaptive_weight - adaptive_weight_mean) * (2 * c_att2.unsqueeze(2))
-            bias = self.bias.repeat(b)
+            if self.bias:
+                bias = self.bias.repeat(b)
+            else:
+                bias = self.bias
             # adaptive_weight = adaptive_weight.reshape(-1, self.in_channels // self.groups, 3, 3)
             x = modulated_deform_conv2d(x, offset, mask, adaptive_weight[:, :-self.normal_conv_dim].reshape(-1, self.in_channels // self.groups, self.kernel_size[0], self.kernel_size[1]), bias,
                                         self.stride, self.padding if isinstance(self.PAD, nn.Identity) else 0, #padding
@@ -912,7 +927,10 @@ class AdaptiveDilatedDWConv(ModulatedDeformConv2d):
             x = x.reshape(1, -1, x.size(-2), x.size(-1))
             adaptive_weight = self.weight.unsqueeze(0).repeat(b, 1, 1, 1, 1) # b, out, in, k, k
             adaptive_weight_mean = adaptive_weight.mean(dim=(-1, -2), keepdim=True)
-            bias = self.bias.repeat(b)
+            if self.bias:
+                bias = self.bias.repeat(b)
+            else:
+                bias = self.bias
             if self.kernel_decompose == 'high':
                 adaptive_weight = adaptive_weight_mean + (adaptive_weight - adaptive_weight_mean) *  (2 * c_att.unsqueeze(2))
             elif self.kernel_decompose == 'low':
