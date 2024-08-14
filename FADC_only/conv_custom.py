@@ -551,7 +551,7 @@ class AdaptiveDilatedConv(ModulatedDeformConv2d):
             # adaptive_weight = adaptive_weight_mean * (c_att1.unsqueeze(1) * 2) * (f_att1.unsqueeze(2) * 2) + (adaptive_weight - adaptive_weight_mean) * (c_att2.unsqueeze(1) * 2) * (f_att2.unsqueeze(2) * 2)
             adaptive_weight = adaptive_weight_mean * (c_att1.unsqueeze(1) * 2) * (f_att1.unsqueeze(2) * 2) + adaptive_weight_res * (c_att2.unsqueeze(1) * 2) * (f_att2.unsqueeze(2) * 2)
             adaptive_weight = adaptive_weight.reshape(-1, self.in_channels // self.groups, 3, 3)
-            if self.bias:
+            if self.bias is not None:
                 bias = self.bias.repeat(b)
             else:
                 bias = self.bias
