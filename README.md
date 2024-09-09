@@ -2,7 +2,7 @@
 
 The preliminary [official implementation](https://github.com/Linwei-Chen/FADC) of our CVPR 2024 paper "[Frequency-Adaptive Dilated Convolution](https://arxiv.org/abs/2403.05369)", which is also available at https://github.com/ying-fu/FADC.
 
-Interested readers are also referred to an insightful [Note]() about this work in Zhihu (TODO). 
+Interested readers are also referred to an insightful [Note](https://zhuanlan.zhihu.com/p/705486302) about this work in Zhihu (TODO). 
 
 **Abstract**
 
