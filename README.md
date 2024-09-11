@@ -21,6 +21,21 @@ Subsequently, we design two plug-in modules to directly enhance effective bandwi
 
 ## Code Usage
 
+The clean code for **FADC** is available [here](https://github.com/Linwei-Chen/FADC/blob/main/FADC_only/conv_custom.py). The usage is very simple, it is basically the same as the standard convolution layer.
+
+```python
+x = torch.rand(2, 4, 16, 16).cuda()
+m = AdaptiveDilatedConv(in_channels=4, out_channels=8, kernel_size=3).cuda()
+y = m(x)
+```
+
+The **FADC** relies on mmcv libarary, you can install mmcv-full by: 
+
+```
+pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 -f https://download.pytorch.org/whl/torch_stable.html
+pip install mmcv-full==1.5.3 -f https://download.openmmlab.com/mmcv/dist/cu113/torch1.11/index.html
+```
+
 ### Installation
 
 Our code is based on [MMSegmentation](https://github.com/open-mmlab/mmsegmentation). You can install mmseg by:
