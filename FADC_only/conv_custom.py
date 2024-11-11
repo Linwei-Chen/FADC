@@ -446,10 +446,6 @@ class AdaptiveDilatedConv(ModulatedDeformConv2d):
     def freq_select(self, x):
         if self.offset_freq is None:
             res = x
-        elif self.offset_freq in ('FLC_high', 'SLP_high'):
-            res = x - self.LP(x)
-        elif self.offset_freq in ('FLC_res', 'SLP_res'):
-            res = 2 * x - self.LP(x)
         else:
             raise NotImplementedError
         return res
