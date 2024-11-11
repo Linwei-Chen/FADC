@@ -423,16 +423,7 @@ class AdaptiveDilatedConv(ModulatedDeformConv2d):
                 bias=True)
         
         self.offset_freq = offset_freq
-
-        if self.offset_freq in ('FLC_high', 'FLC_res'):
-            self.LP = FLC_Pooling(freq_thres=min(0.5 * 1 / self.dilation[0], 0.25))
-        elif self.offset_freq in ('SLP_high', 'SLP_res'):
-            self.LP = StaticLP(self.in_channels, kernel_size=3, stride=1, padding=1, alpha=8)
-        elif self.offset_freq is None:
-            pass
-        else:
-            raise NotImplementedError
-
+        assert self.offset_freq is None
         # An offset is like [y0, x0, y1, x1, y2, x2, ⋯, y8, x8]
         offset = [-1, -1,  -1, 0,   -1, 1,
                   0, -1,   0, 0,    0, 1,
