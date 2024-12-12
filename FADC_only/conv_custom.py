@@ -324,6 +324,7 @@ class FrequencySelection(nn.Module):
                 x_list.append(tmp.reshape(b, -1, h, w))
             if self.lowfreq_att:
                 freq_weight = self.freq_weight_conv_list[len(x_list)](att_feat)
+                freq_weight = self.sp_act(freq_weight)
                 # tmp = freq_weight[:, :, len(x_list):len(x_list)+1] * pre_x.reshape(b, self.spatial_group, -1, h, w)
                 tmp = freq_weight.reshape(b, self.spatial_group, -1, h, w) * pre_x.reshape(b, self.spatial_group, -1, h, w)
                 x_list.append(tmp.reshape(b, -1, h, w))
