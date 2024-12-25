@@ -68,6 +68,27 @@ The config can be found at [here](./configs/FADC).
 
 
 
+<picture>
+  <source
+    media="(prefers-color-scheme: dark)"
+    srcset="
+      https://api.star-history.com/svg?repos=Linwei-Chen/FADC&type=Date&theme=dark
+    "
+  />
+  <source
+    media="(prefers-color-scheme: light)"
+    srcset="
+      https://api.star-history.com/svg?repos=Linwei-Chen/FADC&type=Date
+    "
+  />
+  <img
+    alt="Star History Chart"
+    src="https://api.star-history.com/svg?repos=Linwei-Chen/FADC&type=Date"
+  />
+</picture>
+
+
+
 If you use our dataset or code for research, please cite this paper: 
 
 ```
